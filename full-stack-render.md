@@ -21,7 +21,7 @@ Your `client` folder is the entire React app (created with `create-react-app`, f
 
 Your `server` folder is the entire Node/Express app.
 
-(`client` and `server` aren't crucial directory names if your prefer something else)
+(`client` and `server` aren't crucial directory names if you prefer something else)
 
 Your `.env` file should have any environment variables you need to successfully run the app locally.  We'll get into the details a little later on. The `.env` will only exist locally. You will store the corresponding environment variables in the Render web app so that your production app can make use of them. 
 
@@ -42,6 +42,8 @@ Details for your `.gitignore`:
 `build`: this is where the React production version lives, so if it gets built locally, we don't want to track it
 
 `.env`: **crucial** -- we don't want any sensitive info tracked
+
+`.env.local`: **crucial** -- if you're using this in your React app, we don't want any sensitive info tracked
 
 `.DS_Store`: if you're using macOS
 
@@ -75,7 +77,7 @@ Your `package.json` file should look something like this:
 }
 ```
 
-The reason we have a `package.json` at the root level of our app structure is that we want to have scripts that can run React & the Node app at the same time. To do so, we'll use `concurrently` (`npm i concurrently`).
+The reason we have a `package.json` at the root level of our app structure is that we want to have scripts that can run the React app & the Node app at the same time. To do so, we'll use `concurrently` (`npm i concurrently`).
 
 When developing, you can run `npm run dev`, which will simultaneously change directories into `server` and `client`, respectively, and run the relevant scripts. Keep in mind, each subdirectory has its own `package.json` (and scripts) since they're essentially standalone apps put in one main app that we're controlling here.
 
@@ -169,7 +171,7 @@ npx sequelize-cli db:migrate --env production
 npx sequelize-cli db:seed:all --env production
 ```
 
-**Note**: Since the production database had already been created, you'll only need to migrate & seed. However, if you need to reset tables, reseed, etc., you'll need to use other sequelize-cli commands. 
+**Note**: Since the production database had already been created, you'll only need to migrate & seed. However, if you need to reset tables, reseed, etc., you'll need to use other sequelize-cli or SQL commands.
 
 The PostgreSQL database instance on Render should now be ready for your app to use.
 
@@ -179,9 +181,9 @@ Also, if you want a local interface for your database, connect with Beekeeper St
 
 ## Prepare Codebase for Render
 
-Assuming you followed the earlier steps for your app structure, there are only a handful of further configurations to make to get things up and running. We need to create a new `Web Service` in Render and tweak our client and server code a bit. First, we'll prepare our code, and then we'll get the Web Service hooked up.
+Assuming you followed the earlier steps for your app structure, there are only a handful of further configurations to make to get things up and running. We'll tweak our code a bit and then get things up in Render.
 
-#### Client
+### Client
 
 If your `client` React app runs successfully on its own, there's nothing you need to change inside that directory at this point. It's worth noting here that if you're using environment variables (which should be the case if you have sensitive data such as an API key), your `client` directory would have a `.env.local` file, for instance, where you've got something like this:
 
@@ -194,7 +196,7 @@ In the above example, the `client` React app makes use of two different variable
 
 When running in production, our app is actually going to use the `.env` file at the root of the app (which will include variables that we'll later set in Render).
 
-#### Server
+### Server
 
 Regarding the `server` directory, we need to adjust our `index.js` file so that our app runs both locally and in production. We'll need to either add or adjust our `dotenv` configuration to look like this:
 
@@ -210,7 +212,7 @@ We'll also need to change our PORT to not be hardcoded as `3001`, for example. S
 const port = process.env.PORT;
 ```
 
-This way, Render can set the port automatically in production while we can just set it to `3001` in our `.env` file at the root of the entire app.
+This way, Render can set the port automatically in production while we can just set it to `3001` (or whatever) in our `.env` file at the root of the entire app.
 
 Next, we'll need to change this line: `app.use(express.static(path.join(__dirname, '../client/public')))`
 
@@ -230,7 +232,7 @@ In doing so, we're ensuring that it uses the `public` directory in development m
 
 Additionally, in our catch all route, we can change `res.sendFile(path.join(__dirname, '../client/public/index.html'))` to `res.sendFile(path.join(__dirname, staticPath, 'index.html'))` to make use of the conditional logic that sets the `staticPath`.
 
-#### Last Local Steps
+### Last Local Steps
 
 Make sure the app runs locally by running the `dev` script at the root of the project. By using `concurrently`, it run both apps at the same time. 
 
@@ -238,7 +240,7 @@ Once everything is good to go, push your latest code to GitHub (or run through t
 
 **Note**: If you haven't already done so... to get your server & client apps to play nice together, use the `cors` library on the server and make sure you have `app.use(cors())` in your `index.js`.
 
-### Create New Web Service in Render
+## Create New Web Service in Render
 
 Now that our app is ready to go and in GitHub, we can hook it up with Render.
 
@@ -260,5 +262,7 @@ Next, you'll need to enter the correct environment variables into Render:
 - Add the React environment variables: `REACT_APP_BASE_URL` and `REACT_APP_WHATEVER_API_KEY` (whatever you have called yours), and any other variables you may have.
 
 Finally, let your app auto-build or kick it off again with the `Manual Deploy` button. Once the build has completed (if it doesn't have errors), visit your masterpiece using the URL provided near the top left of the screen.
+
+---
 
 Congratulations! You successfully deployed a full stack app.
