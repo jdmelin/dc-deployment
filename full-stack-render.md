@@ -258,7 +258,7 @@ To explain the build & start commands, we want `npm run setup` to fire off whene
 Next, you'll need to enter the correct environment variables into Render:
 
 - Click on the `Environment` tab on the sidebar
-- Add `PROD_DB_HOST`, `PROD_DB_NAME`, `PROD_DB_PASSWORD`, and `PROD_DB_USER`, and copy the values from the `Connections` section in your PostgreSQL instance on Render
+- Add `PROD_DB_HOST`, `PROD_DB_NAME`, `PROD_DB_PASSWORD`, and `PROD_DB_USER`, and copy the values from the `Connections` section in your PostgreSQL instance on Render (or from your local `.env` file).
 - Add the React environment variables: `REACT_APP_BASE_URL` and `REACT_APP_WHATEVER_API_KEY` (whatever you have called yours), and any other variables you may have.
 
 Finally, let your app auto-build or kick it off again with the `Manual Deploy` button. Once the build has completed (if it doesn't have errors), visit your masterpiece using the URL provided near the top left of the screen.
