@@ -234,7 +234,7 @@ Additionally, in our catch all route, we can change `res.sendFile(path.join(__di
 
 ### Last Local Steps
 
-Make sure the app runs locally by running the `dev` script at the root of the project. By using `concurrently`, it run both apps at the same time. 
+Make sure the app runs locally by running the `dev` script at the root of the project. By using `concurrently`, it runs both apps at the same time. 
 
 Once everything is good to go, push your latest code to GitHub (or run through the whole Git flow if you haven't up to this point).
 
@@ -242,7 +242,7 @@ Once everything is good to go, push your latest code to GitHub (or run through t
 
 ## Create New Web Service in Render
 
-Now that our app is ready to go and in GitHub, we can hook it up with Render.
+Now that your app is ready to go and in GitHub, you can hook it up with Render.
 
 - Click `New` and select `Web Service` from the dropdown
 - You can either connect Render with GitHub repos of your choice, or you can paste in the URL for your repo at the bottom of the page
