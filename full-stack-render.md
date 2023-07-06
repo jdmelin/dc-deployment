@@ -160,7 +160,7 @@ PROD_DB_NAME=[your Render database name]
 PROD_DB_HOST=[your Render database host]
 ```
 
-**Note**: Your `PROD_DB_HOST` value should be formatted similar to `abc-abc12abcdefghij1ab2c-a.ohio-postgres.render.com/my_cool_project`.
+**Note**: Your `PROD_DB_HOST` value should be formatted similar to `abc-abc12abcdefghij1ab2c-a.ohio-postgres.render.com`.
 
 Now, the config file will read in the `development` credentials when running locally and the `production` credentials when running in production on Render.
 
