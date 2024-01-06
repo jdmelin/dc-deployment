@@ -143,7 +143,7 @@ module.exports = {
 
 (You'll also need to update `config.json` to `config.js` in `server/models/index.js`)
 
-Now, run `npm i dotenv` to get your app to place nice with the `.env` file created earlier.
+Now, run `npm i dotenv` to get your app to play nice with the `.env` file created earlier.
 
 Next, put the environment variables relevant to PostgreSQL into your `.env` file.
 
